@@ -8,6 +8,8 @@ const Login = lazy(() => import("./pages/login"));
 const Signup = lazy(() => import("./pages/sign-up"));
 const NotFound = lazy(() => import("./pages/not-found"));
 const Dashboard = lazy(() => import("./pages/dashboard"));
+const Profile = lazy(() => import("./pages/profile"));
+const CreatePost = lazy(() => import("./pages/create-post"));
 
 function App() {
   const { user } = userAuthListener();
@@ -19,7 +21,9 @@ function App() {
           <Routes>
             <Route path={ROUTES.LOGIN} Component={Login} />
             <Route path={ROUTES.SIGN_UP} Component={Signup} />
+            <Route path={ROUTES.PROFILE} Component={Profile} />
             <Route path={ROUTES.DASHBOARD} Component={Dashboard} />
+            <Route path={ROUTES.CREATE_POST} Component={CreatePost} />
             <Route path="*" Component={NotFound} />
           </Routes>
         </Suspense>
