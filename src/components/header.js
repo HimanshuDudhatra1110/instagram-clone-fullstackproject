@@ -5,12 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 import { DEFAULT_IMAGE_PATH } from "../constants/paths";
 import useUser from "../hooks/use-user";
+import { avtarByUserId } from "../services/firebase";
 
 export default function Header() {
   const { Firebase } = useContext(FirebaseContext);
   const { user: loggedInUser } = useContext(UserContext);
   const { user } = useUser(loggedInUser?.uid);
   const navigate = useNavigate();
+  const avtarURL = avtarByUserId(user.userId);
 
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8">

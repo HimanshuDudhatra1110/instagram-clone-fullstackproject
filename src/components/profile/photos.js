@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
 

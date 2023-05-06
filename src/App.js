@@ -10,6 +10,7 @@ const NotFound = lazy(() => import("./pages/not-found"));
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Profile = lazy(() => import("./pages/profile"));
 const CreatePost = lazy(() => import("./pages/create-post"));
+const Avtar = lazy(() => import("./pages/avtar"));
 
 function App() {
   const { user } = userAuthListener();
@@ -24,6 +25,7 @@ function App() {
             <Route path={ROUTES.PROFILE} Component={Profile} />
             <Route path={ROUTES.DASHBOARD} Component={Dashboard} />
             <Route path={ROUTES.CREATE_POST} Component={CreatePost} />
+            <Route path={ROUTES.AVTAR} Component={Avtar} />
             <Route path="*" Component={NotFound} />
           </Routes>
         </Suspense>

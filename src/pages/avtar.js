@@ -6,20 +6,19 @@ import Header from "../components/header";
 
 export default function CreatePost() {
   const { user } = useUser();
-  const [image, setImage] = useState("");
-  const [caption, setCaption] = useState("");
+  const [avtarImage, setAvtarImage] = useState("");
   const { Firebase } = useContext(FirebaseContext);
   const navigate = useNavigate();
 
-  let imageURL;
+  let avtarImageURL;
 
-  const btnInvalid = image === "";
+  const btnInvalid = avtarImage === "";
 
-  const handlePost = async (e) => {
+  const handleAvtar = async (e) => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append("file", image);
+    data.append("file", avtarImage);
     data.append("upload_preset", "instagramclone");
     data.append("cloud_name", "dbbrtvjoo");
 
@@ -29,19 +28,14 @@ export default function CreatePost() {
     })
       .then((res) => res.json())
       .then((data) => {
-        imageURL = data.url;
+        avtarImageURL = data.url;
       })
       .catch((err) => {
         console.log(err);
       });
 
-    await Firebase.firestore().collection("photos").add({
-      caption: caption,
-      comments: [],
-      dateCreated: Date.now(),
-      imageSrc: imageURL,
-      likes: [],
-      photoId: Date.now(),
+    await Firebase.firestore().collection("avtar").add({
+      avtarSrc: avtarImageURL,
       userId: user.userId,
     });
 
@@ -57,30 +51,17 @@ export default function CreatePost() {
           <input
             type="file"
             id="imageSelect"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </div>
-
-        <div className="flex flex-row">
-          <label for="caption">Add Caption</label>
-          <input
-            className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-            type="text"
-            id="caption"
-            name="caption"
-            onChange={(e) => {
-              setCaption(e.target.value);
-            }}
+            onChange={(e) => setAvtarImage(e.target.files[0])}
           />
         </div>
         <div>
           <button
-            onClick={handlePost}
+            onClick={handleAvtar}
             disabled={btnInvalid}
             className={`bg-blue-medium font-bold text-sm rounded text-white w-40 h-8 mt-4
             ${btnInvalid && "opacity-50"}`}
           >
-            Submit{" "}
+            Submit
           </button>
         </div>
       </div>

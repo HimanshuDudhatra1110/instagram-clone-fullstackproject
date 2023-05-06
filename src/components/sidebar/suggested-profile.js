@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { DEFAULT_IMAGE_PATH } from "../../constants/paths";
 import {
+  avtarByUserId,
   updateFollowedUserFollowers,
   updateLoggedInUserFollowing,
 } from "../../services/firebase";
@@ -15,6 +16,7 @@ export default function SuggestedProfile({
   loggedInUserDocId,
 }) {
   const [followed, setFollowed] = useState(false);
+  const avtarURL = avtarByUserId(userId);
 
   async function handleFollowUser() {
     setFollowed(true);

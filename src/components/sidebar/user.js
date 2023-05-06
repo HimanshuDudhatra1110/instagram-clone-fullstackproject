@@ -2,8 +2,13 @@ import PropTypes from "prop-types";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
 import { DEFAULT_IMAGE_PATH } from "../../constants/paths";
+import useUser from "../../hooks/use-user";
+import { avtarByUserId } from "../../services/firebase";
 
 export default function User({ username, fullName }) {
+  const { user } = useUser();
+  const avtarURL = avtarByUserId(user.userId);
+
   return !username || !fullName ? (
     <Skeleton count={1} height={61} />
   ) : (

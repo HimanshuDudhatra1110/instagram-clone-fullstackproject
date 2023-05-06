@@ -169,3 +169,17 @@ export async function toggleFollow(
     isFollowingProfile
   );
 }
+
+export async function avtarByUserId(userId) {
+  // const avtar = await Firebase.firestore()
+  //   .collection("avtar")
+  //   .where("userId", "==", userId)
+  //   .get();
+
+  // const [response = {}] = avtar.docs.map((item) => ({
+  //   ...item.data(),
+  //   docId: item.id,
+  // }));
+
+  return null;
+}

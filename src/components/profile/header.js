@@ -3,7 +3,11 @@ import useUser from "../../hooks/use-user";
 import { useEffect, useState } from "react";
 import { DEFAULT_IMAGE_PATH } from "../../constants/paths";
 import Skeleton from "react-loading-skeleton";
-import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
+import {
+  avtarByUserId,
+  isUserFollowingProfile,
+  toggleFollow,
+} from "../../services/firebase";
 import * as ROUTES from "../../constants/routes";
 import { useNavigate } from "react-router-dom";
 
@@ -24,6 +28,7 @@ export default function Header({
   const navigate = useNavigate();
   const [isFollowingProfile, setIsFollowingProfile] = useState(null);
   const activeBtnFollow = user?.username && user?.username !== profileUsername;
+  const avtarURL = avtarByUserId(user.userId);
 
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -115,13 +120,22 @@ export default function Header({
             {!fullName ? <Skeleton count={1} height={24} /> : fullName}
           </p>
           {!activeBtnFollow && (
-            <button
-              className="bg-blue-medium font-bold text-sm rounded text-white w-40 h-8 mt-4"
-              type="button"
-              onClick={() => navigate(ROUTES.CREATE_POST)}
-            >
-              create a post
-            </button>
+            <div>
+              <button
+                className="bg-blue-medium font-bold text-sm rounded text-white w-40 h-8 mt-4"
+                type="button"
+                onClick={() => navigate(ROUTES.CREATE_POST)}
+              >
+                create a post
+              </button>
+              <button
+                className="bg-blue-medium font-bold text-sm rounded text-white w-40 h-8 mt-4 ml-2"
+                type="button"
+                onClick={() => navigate(ROUTES.AVTAR)}
+              >
+                update profile image
+              </button>
+            </div>
           )}
         </div>
       </div>
