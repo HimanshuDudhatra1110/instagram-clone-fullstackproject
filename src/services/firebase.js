@@ -171,15 +171,15 @@ export async function toggleFollow(
 }
 
 export async function avtarByUserId(userId) {
-  // const avtar = await Firebase.firestore()
-  //   .collection("avtar")
-  //   .where("userId", "==", userId)
-  //   .get();
+  const avtar = await Firebase.firestore()
+    .collection("avtar")
+    .where("userId", "==", userId)
+    .get();
 
-  // const [response = {}] = avtar.docs.map((item) => ({
-  //   ...item.data(),
-  //   docId: item.id,
-  // }));
+  const [response = {}] = avtar.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
 
-  return null;
+  return response.avtarSrc;
 }

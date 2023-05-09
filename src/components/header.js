@@ -5,14 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 import { DEFAULT_IMAGE_PATH } from "../constants/paths";
 import useUser from "../hooks/use-user";
-import { avtarByUserId } from "../services/firebase";
+import useAvtar from "../hooks/use-avtar";
 
 export default function Header() {
   const { Firebase } = useContext(FirebaseContext);
   const { user: loggedInUser } = useContext(UserContext);
   const { user } = useUser(loggedInUser?.uid);
   const navigate = useNavigate();
-  const avtarURL = avtarByUserId(user.userId);
+  const avtarURL = useAvtar(user.userId);
 
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8">
@@ -83,7 +83,7 @@ export default function Header() {
                     <Link to={`/p/${user?.username}`}>
                       <img
                         className="rounded-full h-8 w-8 flex"
-                        src={`/images/avatars/${user?.username}.jpg`}
+                        src={avtarURL}
                         alt={`${user?.username} profile`}
                         onError={(e) => {
                           e.target.src = DEFAULT_IMAGE_PATH;

@@ -1,5 +1,3 @@
-import Skeleton from "react-loading-skeleton";
-import useUser from "../../hooks/use-user";
 import Suggestions from "./suggestions";
 import User from "./user";
 import { useContext } from "react";
@@ -10,7 +8,7 @@ export default function Sidebar() {
     useContext(LoggedInUserContext);
   return (
     <div className="p-4">
-      <User username={username} fullName={fullName} />
+      <User username={username} fullName={fullName} userId={userId} />
       <Suggestions
         userId={userId}
         following={following}

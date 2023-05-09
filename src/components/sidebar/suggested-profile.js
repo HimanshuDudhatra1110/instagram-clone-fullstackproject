@@ -3,10 +3,10 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { DEFAULT_IMAGE_PATH } from "../../constants/paths";
 import {
-  avtarByUserId,
   updateFollowedUserFollowers,
   updateLoggedInUserFollowing,
 } from "../../services/firebase";
+import useAvtar from "../../hooks/use-avtar";
 
 export default function SuggestedProfile({
   profileDocId,
@@ -16,7 +16,7 @@ export default function SuggestedProfile({
   loggedInUserDocId,
 }) {
   const [followed, setFollowed] = useState(false);
-  const avtarURL = avtarByUserId(userId);
+  const avtarURL = useAvtar(profileId);
 
   async function handleFollowUser() {
     setFollowed(true);
@@ -30,8 +30,8 @@ export default function SuggestedProfile({
       <div className="flex items-center justify-between">
         <img
           className="rounded-full w-8 flex mr-3"
-          src={`/images/avatars/${username}.jpg`}
-          alt="user's profile picture"
+          src={avtarURL}
+          alt="user's profile avtar"
           onError={(e) => {
             e.target.src = DEFAULT_IMAGE_PATH;
           }}

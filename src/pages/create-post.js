@@ -10,6 +10,7 @@ export default function CreatePost() {
   const [caption, setCaption] = useState("");
   const { Firebase } = useContext(FirebaseContext);
   const navigate = useNavigate();
+  const [preview, setPreview] = useState("");
 
   let imageURL;
 
@@ -51,37 +52,56 @@ export default function CreatePost() {
   return (
     <div>
       <Header />
-      <div className="container flex flex-col justify-center mx-auto max-w-screen-md items-center h-screen bg-white p-4 border border-gray-primary mb-4 rounded">
-        <div>
-          <label for="imageSelect">Image</label>
-          <input
-            type="file"
-            id="imageSelect"
-            onChange={(e) => setImage(e.target.files[0])}
-          />
-        </div>
-
-        <div className="flex flex-row">
-          <label for="caption">Add Caption</label>
-          <input
-            className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
-            type="text"
-            id="caption"
-            name="caption"
-            onChange={(e) => {
-              setCaption(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <button
-            onClick={handlePost}
-            disabled={btnInvalid}
-            className={`bg-blue-medium font-bold text-sm rounded text-white w-40 h-8 mt-4
+      <div className="bg-gray-background pt-0">
+        <div className="container flex flex-col justify-center mx-auto max-w-screen-md items-center h-screen">
+          <div className=" bg-white p-4 border border-gray-primary mb-4 rounded max-w-screen-sm">
+            <form onSubmit={handlePost} method="POST">
+              <div className="flex gap-2 pb-4">
+                <label for="imageSelect">Select Image:</label>
+                <input
+                  type="file"
+                  id="imageSelect"
+                  onChange={(e) => {
+                    setImage(e.target.files[0]);
+                    setPreview(URL.createObjectURL(e.target.files[0])); // Set preview URL
+                  }}
+                />
+              </div>
+              {preview && (
+                <div className="pb-4">
+                  <img
+                    src={preview}
+                    alt="Selected Image"
+                    style={{ maxWidth: "100%" }}
+                  />
+                </div>
+              )}
+              <div className="flex gap-11">
+                <label for="caption">Caption:</label>
+                <textarea
+                  className="text-sm text-gray-base w-full mr-3 py-5 px-4 border border-gray-primary rounded mb-2"
+                  id="caption"
+                  name="caption"
+                  style={{ height: "4rem" }} // Set initial height
+                  onChange={(e) => {
+                    setCaption(e.target.value);
+                    e.target.style.height = "auto"; // Reset height
+                    e.target.style.height = e.target.scrollHeight + "px"; // Set new height
+                  }}
+                />
+              </div>
+              <div className="flex justify-center">
+                <button
+                  disabled={btnInvalid}
+                  type="submit"
+                  className={`bg-blue-medium font-bold text-sm rounded text-white w-40 h-8 mt-4
             ${btnInvalid && "opacity-50"}`}
-          >
-            Submit{" "}
-          </button>
+                >
+                  Post
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

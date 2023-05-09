@@ -3,13 +3,10 @@ import useUser from "../../hooks/use-user";
 import { useEffect, useState } from "react";
 import { DEFAULT_IMAGE_PATH } from "../../constants/paths";
 import Skeleton from "react-loading-skeleton";
-import {
-  avtarByUserId,
-  isUserFollowingProfile,
-  toggleFollow,
-} from "../../services/firebase";
+import { isUserFollowingProfile, toggleFollow } from "../../services/firebase";
 import * as ROUTES from "../../constants/routes";
 import { useNavigate } from "react-router-dom";
+import useAvtar from "../../hooks/use-avtar";
 
 export default function Header({
   photosCount,
@@ -28,7 +25,7 @@ export default function Header({
   const navigate = useNavigate();
   const [isFollowingProfile, setIsFollowingProfile] = useState(null);
   const activeBtnFollow = user?.username && user?.username !== profileUsername;
-  const avtarURL = avtarByUserId(user.userId);
+  const avtarURL = useAvtar(user.userId);
 
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);
@@ -64,8 +61,8 @@ export default function Header({
         {profileUsername ? (
           <img
             className="rounded-full h-40 w-40 flex"
-            alt={`${fullName} profile picture`}
-            src={`/images/avatars/${profileUsername}.jpg`}
+            alt={`profile avtar`}
+            src={avtarURL}
             onError={(e) => {
               e.target.src = DEFAULT_IMAGE_PATH;
             }}

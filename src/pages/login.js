@@ -31,8 +31,11 @@ function Login() {
   }, []);
 
   return (
-    <div className="bg-insta-pr">
-      <div className="container flex mx-auto max-w-screen-md items-center h-screen">
+    <div
+      className="bg-cover bg-center"
+      style={{ backgroundImage: "url('/images/instagram_bg.jpeg')" }}
+    >
+      <div className="container md:max-2xl flex mx-auto max-w-screen-md items-center h-screen">
         <div className="flex w-3/5">
           <img
             className="rotate-[15deg] w-4/5"

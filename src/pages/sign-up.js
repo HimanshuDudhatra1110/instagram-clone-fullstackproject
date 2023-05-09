@@ -67,7 +67,19 @@ function Signup() {
   }, []);
 
   return (
-    <div className="bg-insta-pr">
+    <div
+      className="bg-cover bg-center "
+      style={{ backgroundImage: "url('/images/instagram_bg.jpeg')" }}
+    >
+      <div className="text-center font-bold text-white pt-10 max-w-screen-lg mx-auto">
+        <h3>
+          "Welcome to PostStorm, where you can join our community of content
+          creators and unleash your creativity! Discover a world of endless
+          inspiration and share your story with the world. We're thrilled to
+          have you on board and can't wait to see what amazing content you'll
+          share with our community."
+        </h3>
+      </div>
       <div className="container flex mx-auto max-w-screen-md items-center h-screen">
         <div className="flex w-3/5">
           <img
