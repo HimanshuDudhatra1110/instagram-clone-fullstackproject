@@ -24,7 +24,7 @@ export default function Header() {
                 <img
                   src="/images/logo.png"
                   alt="Instagram"
-                  className="mt-2 w-6/12"
+                  className="mt-2 w-[20%]"
                 />
               </Link>
             </h1>

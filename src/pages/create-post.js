@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import useUser from "../hooks/use-user";
 import FirebaseContext from "../context/firebase";
 import { useNavigate } from "react-router-dom";
@@ -49,6 +49,10 @@ export default function CreatePost() {
     navigate(`/p/${user.username}`);
   };
 
+  useEffect(() => {
+    document.title = "Create a post";
+  }, []);
+
   return (
     <div>
       <Header />
@@ -57,7 +61,7 @@ export default function CreatePost() {
           <div className=" bg-white p-4 border border-gray-primary mb-4 rounded max-w-screen-sm">
             <form onSubmit={handlePost} method="POST">
               <div className="flex gap-2 pb-4">
-                <label for="imageSelect">Select Image:</label>
+                <label htmlFor="imageSelect">Select Image:</label>
                 <input
                   type="file"
                   id="imageSelect"
@@ -71,13 +75,13 @@ export default function CreatePost() {
                 <div className="pb-4">
                   <img
                     src={preview}
-                    alt="Selected Image"
+                    alt="Selected postimage"
                     style={{ maxWidth: "100%" }}
                   />
                 </div>
               )}
               <div className="flex gap-11">
-                <label for="caption">Caption:</label>
+                <label htmlFor="caption">Caption:</label>
                 <textarea
                   className="text-sm text-gray-base w-full mr-3 py-5 px-4 border border-gray-primary rounded mb-2"
                   id="caption"

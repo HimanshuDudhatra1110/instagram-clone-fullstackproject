@@ -1,4 +1,4 @@
-import { Link, Routes, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
 import { useContext, useEffect, useState } from "react";
 import * as ROUTES from "../constants/routes";
@@ -63,7 +63,7 @@ function Signup() {
     }
   };
   useEffect(() => {
-    document.title = "Sign Up into Instagram";
+    document.title = "Sign Up into PostStorm";
   }, []);
 
   return (
@@ -85,7 +85,7 @@ function Signup() {
           <img
             className="rotate-[15deg] w-4/5"
             src="/images/iphone-with-profile.png"
-            alt="instagram in iphone image"
+            alt="instagram in iphone png"
           ></img>
         </div>
 

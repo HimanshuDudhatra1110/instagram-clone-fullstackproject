@@ -25,7 +25,7 @@ export default function Header({
   const navigate = useNavigate();
   const [isFollowingProfile, setIsFollowingProfile] = useState(null);
   const activeBtnFollow = user?.username && user?.username !== profileUsername;
-  const avtarURL = useAvtar(user.userId);
+  const avtarURL = useAvtar(profileUserId);
 
   const handleToggleFollow = async () => {
     setIsFollowingProfile((isFollowingProfile) => !isFollowingProfile);

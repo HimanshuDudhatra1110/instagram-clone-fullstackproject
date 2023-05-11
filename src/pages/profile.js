@@ -23,6 +23,10 @@ export default function Profile() {
     checkUserExists();
   }, [username, navigate]);
 
+  useEffect(() => {
+    document.title = `${username}`;
+  });
+
   return user?.username ? (
     <div className="bg-gray-background">
       <Header />

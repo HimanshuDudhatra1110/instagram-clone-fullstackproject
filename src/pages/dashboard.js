@@ -9,7 +9,7 @@ function Dashboard() {
   const { user } = useUser();
 
   useEffect(() => {
-    document.title = "Instagram";
+    document.title = "PostStorm";
   }, []);
 
   return (

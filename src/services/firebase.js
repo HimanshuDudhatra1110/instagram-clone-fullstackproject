@@ -183,3 +183,28 @@ export async function avtarByUserId(userId) {
 
   return response.avtarSrc;
 }
+
+export async function isUserHasAvtar(userId) {
+  const result = await Firebase.firestore()
+    .collection("avtar")
+    .where("userId", "==", userId)
+    .get();
+
+  return result.docs.length > 0;
+}
+
+export async function followingByuserId(userId) {
+  const result = await Firebase.firestore()
+    .collection("users")
+    .where("userId", "==", userId)
+    .get();
+
+  const response = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+
+  const followingArray = response[0].following;
+
+  return followingArray;
+}
