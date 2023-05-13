@@ -101,14 +101,34 @@ export default function Header({
               <p className="mr-10">
                 <span className="font-bold">{photosCount}</span> photos
               </p>
-              <p className="mr-10">
-                <span className="font-bold">{followerCount}</span>
-                {` `}
-                {followerCount === 1 ? `follower` : `followers`}
-              </p>
-              <p className="mr-10">
-                <span className="font-bold">{following?.length}</span> following
-              </p>
+              {!activeBtnFollow ? (
+                <a href={ROUTES.FOLLOWERS}>
+                  <p className="mr-10">
+                    <span className="font-bold">{followerCount}</span>
+                    {` `}
+                    {followerCount === 1 ? `follower` : `followers`}
+                  </p>
+                </a>
+              ) : (
+                <p className="mr-10">
+                  <span className="font-bold">{followerCount}</span>
+                  {` `}
+                  {followerCount === 1 ? `follower` : `followers`}
+                </p>
+              )}
+              {!activeBtnFollow ? (
+                <a href={ROUTES.FOLLOWING}>
+                  <p className="mr-10">
+                    <span className="font-bold">{following?.length}</span>{" "}
+                    following
+                  </p>
+                </a>
+              ) : (
+                <p className="mr-10">
+                  <span className="font-bold">{following?.length}</span>{" "}
+                  following
+                </p>
+              )}
             </>
           )}
         </div>

@@ -16,7 +16,7 @@ export default function User({ username, fullName, userId }) {
     >
       <div className="flex items-center justify-between col-span-1">
         <img
-          className="rounded-full w-16 flex mr-3"
+          className="rounded-full w-16 h-16 flex mr-3"
           src={avtarURL}
           alt=""
           onError={(e) => {

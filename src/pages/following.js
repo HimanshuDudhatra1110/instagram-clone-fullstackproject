@@ -13,6 +13,8 @@ export default function Following() {
       setFollowingArray(await followingByuserId(user.userId));
     }
     getFollowing();
+
+    document.title = `${user.username}'s Following`;
   }, [user]);
 
   return (
@@ -20,7 +22,12 @@ export default function Following() {
       <Header />
       <div className="mt-4 grid gap-5">
         {followingArray.map((profile) => (
-          <FollowingProfile profileId={profile} />
+          <FollowingProfile
+            key={profile}
+            profileId={profile}
+            loggedInUserDocId={user.docId}
+            activeUserId={user.userId}
+          />
         ))}
       </div>
     </div>

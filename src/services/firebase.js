@@ -83,6 +83,36 @@ export async function updateFollowedUserFollowers(
     });
 }
 
+export async function updateLoggedInUserFollowers(
+  loggedInUserDocId, // currently logged in user document id
+  profileId, // the user that currently logged in user requests to remove
+  isFollowersFollowing // true/false (is user currently following logged in user?)
+) {
+  return Firebase.firestore()
+    .collection("users")
+    .doc(loggedInUserDocId)
+    .update({
+      followers: isFollowersFollowing
+        ? FieldValue.arrayRemove(profileId)
+        : FieldValue.arrayUnion(profileId),
+    });
+}
+
+export async function updateRemovedUsersFollowing(
+  profileDocId, // currently logged in user document id
+  loggedInUserId, // the user that currently logged in
+  isFollowingUser // true/false (is user currently following logged in user?)
+) {
+  return Firebase.firestore()
+    .collection("users")
+    .doc(profileDocId)
+    .update({
+      following: isFollowingUser
+        ? FieldValue.arrayRemove(loggedInUserId)
+        : FieldValue.arrayUnion(loggedInUserId),
+    });
+}
+
 export async function getPhotos(userId, following) {
   // we have array of userid as following
   const result = await Firebase.firestore()
@@ -207,4 +237,20 @@ export async function followingByuserId(userId) {
   const followingArray = response[0].following;
 
   return followingArray;
+}
+
+export async function followersByuserId(userId) {
+  const result = await Firebase.firestore()
+    .collection("users")
+    .where("userId", "==", userId)
+    .get();
+
+  const response = result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id,
+  }));
+
+  const followersArray = response[0].followers;
+
+  return followersArray;
 }

@@ -1,41 +1,41 @@
-import { Link } from "react-router-dom";
-import { DEFAULT_IMAGE_PATH } from "../constants/paths";
+import { useEffect, useState } from "react";
 import {
   getUserByUserId,
-  updateFollowedUserFollowers,
-  updateLoggedInUserFollowing,
+  updateLoggedInUserFollowers,
+  updateRemovedUsersFollowing,
 } from "../services/firebase";
-import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import useAvtar from "../hooks/use-avtar";
+import { DEFAULT_IMAGE_PATH } from "../constants/paths";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-export default function FollowingProfile({
+export default function FollowersProfile({
   profileId,
   loggedInUserDocId,
   activeUserId,
 }) {
-  const [followingUser, setFollowingUser] = useState();
-  const [followed, setFollowed] = useState(true);
+  const [followerUser, setFollowerUser] = useState();
   const avtarURL = useAvtar(profileId);
+  const [removed, setRemoved] = useState(false);
 
   useEffect(() => {
-    async function getFollowingUser() {
+    async function getFollowerUserObj() {
       const [response] = await getUserByUserId(profileId);
-      setFollowingUser(response);
+      setFollowerUser(response);
     }
-    getFollowingUser();
+    getFollowerUserObj();
   }, [profileId]);
 
-  async function handleUnfollowUser() {
-    setFollowed(false);
+  async function handleRemoveUser() {
+    setRemoved(true);
 
-    await updateLoggedInUserFollowing(loggedInUserDocId, profileId, true);
-    await updateFollowedUserFollowers(followingUser.docId, activeUserId, true);
+    await updateLoggedInUserFollowers(loggedInUserDocId, profileId, true);
+    await updateRemovedUsersFollowing(followerUser.docId, activeUserId, true);
   }
 
   return (
     <>
-      {followed ? (
+      {!removed ? (
         <div className="container max-w-screen-sm mx-auto flex flex-row items-center align-items justify-between px-[10%]">
           <div className="flex items-center justify-between ">
             <img
@@ -46,18 +46,18 @@ export default function FollowingProfile({
                 e.target.src = DEFAULT_IMAGE_PATH;
               }}
             />
-            {followingUser && (
-              <Link to={`/p/${followingUser.username}`}>
-                <p className="font-bold text-sm">{followingUser.username}</p>
+            {followerUser && (
+              <Link to={`/p/${followerUser.username}`}>
+                <p className="font-bold text-sm">{followerUser.username}</p>
               </Link>
             )}
           </div>
           <button
             className="text-xs font-bold text-blue-medium"
             type="button"
-            onClick={handleUnfollowUser}
+            onClick={handleRemoveUser}
           >
-            Unollow
+            Remove
           </button>
         </div>
       ) : null}
@@ -65,7 +65,7 @@ export default function FollowingProfile({
   );
 }
 
-FollowingProfile.propTypes = {
+FollowersProfile.propTypes = {
   profileId: PropTypes.string.isRequired,
   loggedInUserDocId: PropTypes.string.isRequired,
   activeUserId: PropTypes.string.isRequired,

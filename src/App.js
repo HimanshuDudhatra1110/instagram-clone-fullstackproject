@@ -13,6 +13,7 @@ const Profile = lazy(() => import("./pages/profile"));
 const CreatePost = lazy(() => import("./pages/create-post"));
 const AddAvtar = lazy(() => import("./pages/avtar"));
 const Following = lazy(() => import("./pages/following"));
+const Followers = lazy(() => import("./pages/followers"));
 
 function App() {
   const { user } = userAuthListener();
@@ -32,6 +33,7 @@ function App() {
               <Route path={ROUTES.CREATE_POST} element={<CreatePost />} />
               <Route path={ROUTES.AVTAR} element={<AddAvtar />} />
               <Route path={ROUTES.FOLLOWING} element={<Following />} />
+              <Route path={ROUTES.FOLLOWERS} element={<Followers />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

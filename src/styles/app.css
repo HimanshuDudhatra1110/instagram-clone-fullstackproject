@@ -768,6 +768,10 @@ video {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.px-\[10\%\] {
+  padding-left: 10%;
+  padding-right: 10%;
+}
 .py-0 {
   padding-top: 0px;
   padding-bottom: 0px;
